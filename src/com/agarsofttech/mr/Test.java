@@ -1,5 +1,6 @@
 package com.agarsofttech.mr;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,8 +11,9 @@ import java.util.Set;
 
 public class Test {
 
-	public static void main(String[] args) {
-		try(Scanner scanner = new Scanner(new FileReader(args[0]))) {
+	public static void main(String[] args) throws FileNotFoundException {
+		Scanner scanner ;
+			scanner = new Scanner(new FileReader(args[0]));
     		while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Set<String> chromosome = getChromosome(line);
@@ -21,9 +23,7 @@ public class Test {
                 	System.out.println(rule+" "+1);
                 }
             }
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
 	}
 	
 	private static Set<String> getChromosome(String line) {

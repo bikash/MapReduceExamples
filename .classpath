@@ -107,5 +107,10 @@
 	<classpathentry kind="lib" path="/Users/bikash/BigData/hadoop/share/hadoop/common/lib/xmlenc-0.52.jar"/>
 	<classpathentry kind="lib" path="/Users/bikash/BigData/hadoop/share/hadoop/common/lib/xz-1.0.jar"/>
 	<classpathentry kind="lib" path="/Users/bikash/BigData/hadoop/share/hadoop/common/lib/zookeeper-3.4.6.jar"/>
+	<classpathentry kind="lib" path="/Users/bikash/BigData/hadoop/share/hadoop/yarn/hadoop-yarn-common-2.6.0.jar"/>
+	<classpathentry kind="lib" path="/Users/bikash/BigData/hadoop/share/hadoop/yarn/hadoop-yarn-api-2.6.0.jar"/>
+	<classpathentry kind="lib" path="/Users/bikash/BigData/hadoop/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-2.6.0.jar"/>
+	<classpathentry kind="lib" path="/Users/bikash/BigData/hadoop/share/hadoop/yarn/hadoop-yarn-applications-unmanaged-am-launcher-2.6.0.jar"/>
+	<classpathentry kind="lib" path="/Users/bikash/BigData/hadoop/share/hadoop/yarn/hadoop-yarn-client-2.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
