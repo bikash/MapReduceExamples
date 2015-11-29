@@ -19,6 +19,7 @@ public class GACombiner
       }
       /*if(isRuleFit(sum))*/
     	  result.set(sum);
+    	  System.out.println("Key > sum" + key + sum);
     	  context.write(key, result);
 
     }

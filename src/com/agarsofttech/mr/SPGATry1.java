@@ -15,8 +15,8 @@ public static void main(String[] args) throws Exception {
     Job job = Job.getInstance(conf,"asd");
     job.setJarByClass(SPGATry1.class);
     job.setMapperClass(GAMapper.class);
-    //job.setCombinerClass(GACombiner.class);
-    //job.setReducerClass(GAReducer.class);
+    job.setCombinerClass(GACombiner.class);
+    job.setReducerClass(GAReducer.class);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(IntWritable.class);
     //FileInputFormat.addInputPath(job, new Path(args[0]));
