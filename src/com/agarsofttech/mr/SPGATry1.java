@@ -21,13 +21,13 @@ public static void main(String[] args) throws Exception {
     Job job = Job.getInstance(conf,"asd");
     job.setJarByClass(SPGATry1.class);
     job.setMapperClass(GAMapper.class);
-    //job.setCombinerClass(GACombiner.class);
-    //job.setReducerClass(GAReducer.class);
+    job.setCombinerClass(GACombiner.class);
+    job.setReducerClass(GAReducer.class);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(FloatWritable.class);
     //FileInputFormat.addInputPath(job, new Path(args[0]));
     //FileOutputFormat.setOutputPath(job, new Path(args[1]));
-    FileInputFormat.addInputPath(job, new Path("data/input1.txt"));
+    FileInputFormat.addInputPath(job, new Path("data/input.txt"));
     FileOutputFormat.setOutputPath(job, new Path("out"));
     System.exit(job.waitForCompletion(true) ? 0 : 1);
 	

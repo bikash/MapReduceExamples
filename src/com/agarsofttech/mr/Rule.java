@@ -51,18 +51,14 @@ public class Rule {
 	//exclude duplicate tuples from the list
 	private static List<Integer> excludeDupRule(List<Integer> rules) {
 		List<Integer> newList = new ArrayList<Integer>(rules.size());
-		System.out.println(" size -->" + rules.size());
-		int counter = 0;
+		//System.out.println(" size -->" + rules.size());
 		for(int j=0;j<rules.size();j++){
 			//for (Integer myInt1 : myInt) {
-				System.out.println(" index1 -->" + rules.get(1) + " index 2 "+ rules.get(2));
-				if(rules.get(1) != rules.get(2))
-				{
+				//System.out.println(" index1 -->" + rules.get(1) + " index 2 "+ rules.get(2));
+				if((rules.get(1) != rules.get(2)) && (rules.get(0) != rules.get(1)))
 					newList.add(rules.get(j)); 
-				}
-				else {
+				else 
 					newList.remove(rules.get(j)); 
-				}
 			}
 		return newList;
 	}

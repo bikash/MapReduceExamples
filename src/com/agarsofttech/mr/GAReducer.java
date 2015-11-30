@@ -19,7 +19,7 @@ public class GAReducer
     	  if(isRuleFit(val.get()))
     	  {
     		  float sup = calcFitness(val.get());
-    		  System.out.println("Fitness" + key + sup + " -> "+ val.get());
+    		  //System.out.println("Fitness" + key + sup + " -> "+ val.get());
     		  fitness.set(sup);
     		  context.write(key, fitness);
     	  }
