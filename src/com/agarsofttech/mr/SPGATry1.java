@@ -30,17 +30,5 @@ public static void main(String[] args) throws Exception {
     FileInputFormat.addInputPath(job, new Path("data/input.txt"));
     FileOutputFormat.setOutputPath(job, new Path("out"));
     System.exit(job.waitForCompletion(true) ? 0 : 1);
-	
-	/* String line = "38 39 47 48";
-	 System.out.println("line " + line);
-	 Set<String> chromosome = getChromosome(line);
-     Set<List<Integer>> rules = Rule.getRules(chromosome);
-     for(List<Integer> rule:rules){
-     	System.out.println("Rules" + rule.toString());
-     }*/
-     
   }
-
-
-
 }
