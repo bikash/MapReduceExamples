@@ -3,7 +3,6 @@ package com.agarsofttech.mr;
 import java.io.IOException;
 
 import org.apache.hadoop.io.FloatWritable;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -18,8 +17,10 @@ public class GACombiner
       for (FloatWritable val : values) {
         sum += val.get();
       }
+      
       /*if(isRuleFit(sum))*/
     	  result.set(sum);
+    	  KeyValue kv = new KeyValue(key, sum);
     	  //System.out.println("Key > sum" + key + sum);
     	  context.write(key, result);
 

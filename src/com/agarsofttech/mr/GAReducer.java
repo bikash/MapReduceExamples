@@ -16,20 +16,31 @@ public class GAReducer
                        Context context
                        ) throws IOException, InterruptedException {
       for (FloatWritable val : values) {
-    	 // if(isRuleFit(val.get()))
-    	  //{
-    		  float sup = calcFitness(val.get());
-    		  //System.out.println("Fitness" + key + sup + " -> "+ val.get());
-    		  fitness.set(sup);
+    		  float fit = calcFitness(val.get());
+    		  fitness.set(fit);
     		  context.write(key, fitness);
-    	  //}
       }
+      for (FloatWritable val : values) {
+    	  
+      }
+      
     }
     private float calcFitness(float val) {
     	float sup = val/Util.N;
 		return sup;
 	}
     
+    private Text convertKey(Text key){
+    	
+		return key;
+    	
+    }
+    private float calcMaxFit(float fit) {
+    	
+    	
+		//return fit>=Util.min_Fitness;
+    	return (float) 1.0;
+	}
     
 	private boolean isRuleFit(float fit) {
 		return fit>=Util.min_Fitness;
