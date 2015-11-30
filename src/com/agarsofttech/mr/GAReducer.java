@@ -2,26 +2,36 @@ package com.agarsofttech.mr;
 
 import java.io.IOException;
 
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class GAReducer
-       extends Reducer<Text,IntWritable,Text,IntWritable> {
+       extends Reducer<Text,FloatWritable,Text,FloatWritable> {
 
-    public void reduce(Text key, Iterable<IntWritable> values,
+    private final static FloatWritable fitness = new FloatWritable(1);
+
+	public void reduce(Text key, Iterable<FloatWritable> values,
                        Context context
                        ) throws IOException, InterruptedException {
-      for (IntWritable val : values) {
+      for (FloatWritable val : values) {
     	  if(isRuleFit(val.get()))
     	  {
-    		  context.write(key, val);
+    		  float sup = calcFitness(val.get());
+    		  System.out.println("Fitness" + key + sup + " -> "+ val.get());
+    		  fitness.set(sup);
+    		  context.write(key, fitness);
     	  }
       }
     }
-
-
-	private boolean isRuleFit(int sum) {
+    private float calcFitness(float val) {
+    	float sup = val/Util.N;
+		return sup;
+	}
+    
+    
+	private boolean isRuleFit(float sum) {
 		return sum>=Util.min_F;
 	}
   }

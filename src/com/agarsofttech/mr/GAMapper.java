@@ -8,14 +8,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 @SuppressWarnings("unused")
-public class GAMapper extends Mapper<Object, Text, Text, IntWritable>{
+public class GAMapper extends Mapper<Object, Text, Text, FloatWritable>{
 
-    private final static IntWritable one = new IntWritable(1);
+    private final static FloatWritable one = new FloatWritable(1);
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
