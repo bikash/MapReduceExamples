@@ -16,13 +16,13 @@ public class GAReducer
                        Context context
                        ) throws IOException, InterruptedException {
       for (FloatWritable val : values) {
-    	  if(isRuleFit(val.get()))
-    	  {
+    	 // if(isRuleFit(val.get()))
+    	  //{
     		  float sup = calcFitness(val.get());
     		  //System.out.println("Fitness" + key + sup + " -> "+ val.get());
     		  fitness.set(sup);
     		  context.write(key, fitness);
-    	  }
+    	  //}
       }
     }
     private float calcFitness(float val) {
@@ -31,7 +31,7 @@ public class GAReducer
 	}
     
     
-	private boolean isRuleFit(float sum) {
-		return sum>=Util.min_F;
+	private boolean isRuleFit(float fit) {
+		return fit>=Util.min_Fitness;
 	}
   }

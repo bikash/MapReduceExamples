@@ -24,8 +24,9 @@ public class Rule {
 					if(i==j||j==k||j==k)
 						continue;
 					List<Integer> rule = createRule(array,i,j,k);
+					//System.out.println("Rules " + rule.toString());
 					if(rule.toString()!="[]")
-						rules.add(createRule(array,i,j,k));
+						rules.add(rule);
 	
 				}
 			}
@@ -54,11 +55,13 @@ public class Rule {
 		//System.out.println(" size -->" + rules.size());
 		for(int j=0;j<rules.size();j++){
 			//for (Integer myInt1 : myInt) {
-				//System.out.println(" index1 -->" + rules.get(1) + " index 2 "+ rules.get(2));
-				if((rules.get(1) != rules.get(2)) && (rules.get(0) != rules.get(1)))
+				if((rules.get(1).intValue() != rules.get(2).intValue()) && (rules.get(0).intValue() != rules.get(1).intValue())){
+					//System.out.println("index0 -->" + rules.get(0) + " index1 -->" + rules.get(1) + " index2 -->"+ rules.get(2));
 					newList.add(rules.get(j)); 
-				else 
+				}
+				else {
 					newList.remove(rules.get(j)); 
+				}
 			}
 		return newList;
 	}

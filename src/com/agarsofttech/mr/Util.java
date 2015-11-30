@@ -1,8 +1,8 @@
 package com.agarsofttech.mr;
 
 public class Util {
-	public static final int N = 88158;
-	public static final float min_F = 1;
+	public static final int N = 4;
+	public static final float min_Fitness = (float) 0.25;
 	public static final int ItemSise = 20000;
 	
 }
