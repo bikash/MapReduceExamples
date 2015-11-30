@@ -25,11 +25,11 @@ public class GAMapper extends Mapper<Object, Text, Text, FloatWritable>{
     		//) {
     		while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                System.out.println("line" + line);
+                System.out.println("line -> " + line);
                 Set<String> chromosome = getChromosome(line);
                 Set<List<Integer>> rules = Rule.getRules(chromosome);
                 for(List<Integer> rule:rules){
-                	System.out.println("Rules" + rule.toString());
+                	System.out.println("Rules " + rule.toString());
                 	context.write(new Text(rule.toString()), one);
                 }
             }
