@@ -22,7 +22,8 @@ public static void main(String[] args) throws Exception {
     job.setJarByClass(SPGATry1.class);
     job.setMapperClass(GAMapper.class);
     job.setCombinerClass(GACombiner.class);
-    job.setReducerClass(GAReducer.class);
+
+    //job.setReducerClass(GAReducer.class);
     //job.setMapperClass(MaxFitMapper.class);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(FloatWritable.class);
