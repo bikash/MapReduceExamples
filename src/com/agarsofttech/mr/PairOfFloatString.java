@@ -35,6 +35,9 @@ public class PairOfFloatString implements WritableComparable<PairOfFloatString> 
     set(left, right);
   }
 
+  public PairOfFloatString(float left) {
+	    set(left);
+	  }
   /**
    * Deserializes the pair.
    *
@@ -101,7 +104,14 @@ public class PairOfFloatString implements WritableComparable<PairOfFloatString> 
     rightElement = right;
     leftElement = left;
   }
-
+  /**
+   * Sets the left elements of this pair.
+   *
+   * @param left the left element
+   */
+  public void set(float left) {
+    leftElement = left;
+  }
   /**
    * Checks two pairs for equality.
    *

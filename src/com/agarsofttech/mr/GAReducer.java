@@ -1,6 +1,7 @@
 package com.agarsofttech.mr;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
@@ -8,39 +9,76 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class GAReducer
-       extends Reducer<Text,FloatWritable,Text,FloatWritable> {
+       extends Reducer<Text,PairOfFloatString,Text,PairOfFloatString> {
 
-    private final static FloatWritable fitness = new FloatWritable(1);
-
-	public void reduce(Text key, Iterable<FloatWritable> values,
+    //private final static FloatWritable fitness = new FloatWritable(1);
+	private final static PairOfFloatString kv = new PairOfFloatString();
+	private final float[] fits = new float[50];
+	private final String[] k = new String[50];
+	public void reduce(Text key, Iterable<PairOfFloatString> values,
                        Context context
                        ) throws IOException, InterruptedException {
-      for (FloatWritable val : values) {
-    		  float fit = calcFitness(val.get());
-    		  fitness.set(fit);
-    		  context.write(key, fitness);
+
+	  int i = 0;
+      for (PairOfFloatString val : values) {
+    		  fits[i] = calcFitness(val.getKey());
+    		  //System.out.println("arr fit " +  fits[i]);
+    		  k[i] = val.getValue();
+    		  i++;
       }
-     
-      
+   
+      float[] arr = calcMaxFit(fits);
+      for (int j = 0; j < i; j++) {
+    	  float v = arr[j];
+	      //String k1 = k[j];
+	      String rkey=rootKey(k[j]);
+	      Text rootKey = new Text(rkey);
+	      kv.set(v);
+		  context.write(rootKey, kv);
+      	}
+    
     }
+	
+	private String rootKey(String k){
+		String[] arr = k.split(",");
+    	String a = arr[0].substring(1, arr[0].length());
+    	String str1 = "";
+    	String sep = "";
+    	for(int i=1;i<arr.length;i++){
+    		if(i==1)
+    			sep = "";
+    		else
+    			sep =",";
+    		str1= str1+sep+arr[i];
+    	}
+    	String str= a+" -> "+ str1;
+    	str = str.substring(0, str.length()-1);
+		return str;
+	}
     private float calcFitness(float val) {
     	float sup = val/Util.N;
 		return sup;
 	}
     
-    private Text convertKey(Text key){
-    	
-		return key;
-    	
+
+    private float[] calcMaxFit(float[] fit) {
+    	for(int j =0; j<fit.length;j++){
+    		if(fit[j]>=Util.min_Fitness){
+    			fit[j]=maxValue(fit);
+    		}
+        }
+    	return fit;
+	}
+    private static float maxValue(float[] arr) {
+    	float max = arr[0];
+    	for (int ktr = 0; ktr < arr.length; ktr++) {
+    		if (arr[ktr] > max) {
+    			max = arr[ktr];
+    		}
+    	}
+    	return max;
     }
-    private float calcMaxFit(float fit) {
-    	
-    	
-		//return fit>=Util.min_Fitness;
-    	return (float) 1.0;
-	}
-    
-	private boolean isRuleFit(float fit) {
+	/*private boolean isRuleFit(float fit) {
 		return fit>=Util.min_Fitness;
-	}
+	}*/
   }

@@ -22,9 +22,8 @@ public static void main(String[] args) throws Exception {
     job.setJarByClass(SPGATry1.class);
     job.setMapperClass(GAMapper.class);
     job.setCombinerClass(GACombiner.class);
+    job.setReducerClass(GAReducer.class);
 
-    //job.setReducerClass(GAReducer.class);
-    //job.setMapperClass(MaxFitMapper.class);
     //job.setMapOutputKeyClass(Text.class);
     //job.setMapOutputValueClass(PairOfFloatString.class);
     
@@ -33,7 +32,7 @@ public static void main(String[] args) throws Exception {
     //FileInputFormat.addInputPath(job, new Path(args[0]));
     //FileOutputFormat.setOutputPath(job, new Path(args[1]));
     FileInputFormat.addInputPath(job, new Path("data/input1.txt"));
-    FileOutputFormat.setOutputPath(job, new Path("out332"));
+    FileOutputFormat.setOutputPath(job, new Path("out"));
     System.exit(job.waitForCompletion(true) ? 0 : 1);
   }
 }

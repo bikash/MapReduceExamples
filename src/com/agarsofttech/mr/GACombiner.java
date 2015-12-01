@@ -22,7 +22,7 @@ public class GACombiner
       String k = key.toString();
       kv.set(sum, k);
       Text BaseKey = new Text(getBaseKey(k));
-      System.out.println("Key > " + BaseKey);
+      //System.out.println("Key > " + BaseKey);
       //Convert string of [38, 39, 48] in to 38 as key
       //System.out.println("Key > sum" + kv.toString());
       //result.set(sum);
