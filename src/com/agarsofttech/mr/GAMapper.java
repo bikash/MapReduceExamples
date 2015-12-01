@@ -14,10 +14,10 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 @SuppressWarnings("unused")
-public class GAMapper extends Mapper<Object, Text, Text, FloatWritable>{
+public class GAMapper extends Mapper<Object, Text, Text, PairOfFloatString>{
 
     private final static FloatWritable one = new FloatWritable(1);
-
+    private final static PairOfFloatString kv = new PairOfFloatString();
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
     	//try(
@@ -25,12 +25,13 @@ public class GAMapper extends Mapper<Object, Text, Text, FloatWritable>{
     		//) {
     		while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                //System.out.println("line -> " + line);
                 Set<String> chromosome = getChromosome(line);
                 Set<List<Integer>> rules = Rule.getRules(chromosome);
                 for(List<Integer> rule:rules){
                 	//System.out.println("Rules " + rule.toString());
-                	context.write(new Text(rule.toString()), one);
+                     String k = key.toString();
+                     kv.set(1, k);
+                	context.write(new Text(rule.toString()), kv);
                 }
             }
 		//} catch (Exception e) {

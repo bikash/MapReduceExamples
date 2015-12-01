@@ -20,9 +20,7 @@ public class GAReducer
     		  fitness.set(fit);
     		  context.write(key, fitness);
       }
-      for (FloatWritable val : values) {
-    	  
-      }
+     
       
     }
     private float calcFitness(float val) {

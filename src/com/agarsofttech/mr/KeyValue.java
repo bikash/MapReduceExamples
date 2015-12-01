@@ -32,4 +32,8 @@ public class KeyValue<K, V> implements Map.Entry<K, V>
     {
         return this.value = value;
     }
+    @Override
+	public String toString() {
+		return String.format("%s    %s", this.key, this.value);
+	}
 }
