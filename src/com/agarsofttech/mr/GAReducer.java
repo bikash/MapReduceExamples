@@ -9,10 +9,9 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class GAReducer
-       extends Reducer<Text,PairOfFloatString,Text,PairOfFloatString> {
+       extends Reducer<Text,PairOfFloatString,Text,FloatWritable> {
 
-    //private final static FloatWritable fitness = new FloatWritable(1);
-	private final static PairOfFloatString kv = new PairOfFloatString();
+    private final static FloatWritable fitness = new FloatWritable(1);
 	private final float[] fits = new float[50];
 	private final String[] k = new String[50];
 	public void reduce(Text key, Iterable<PairOfFloatString> values,
@@ -29,12 +28,10 @@ public class GAReducer
    
       float[] arr = calcMaxFit(fits);
       for (int j = 0; j < i; j++) {
-    	  float v = arr[j];
-	      //String k1 = k[j];
+    	  fitness.set(arr[j]);
 	      String rkey=rootKey(k[j]);
 	      Text rootKey = new Text(rkey);
-	      kv.set(v);
-		  context.write(rootKey, kv);
+		  context.write(rootKey, fitness);
       	}
     
     }
@@ -49,10 +46,11 @@ public class GAReducer
     			sep = "";
     		else
     			sep =",";
-    		str1= str1+sep+arr[i];
+    		str1= str1+sep+arr[i].trim();
     	}
     	String str= a+" -> "+ str1;
-    	str = str.substring(0, str.length()-1);
+    	str = str.substring(0, str.length()-1) +"   ";
+    	
 		return str;
 	}
     private float calcFitness(float val) {
