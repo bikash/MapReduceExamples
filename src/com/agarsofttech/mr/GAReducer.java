@@ -8,6 +8,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
+@SuppressWarnings("unused")
 public class GAReducer
        extends Reducer<Text,PairOfFloatString,Text,FloatWritable> {
 
@@ -28,10 +29,13 @@ public class GAReducer
    
       float[] arr = calcMaxFit(fits);
       for (int j = 0; j < i; j++) {
-    	  fitness.set(arr[j]);
-	      String rkey=rootKey(k[j]);
-	      Text rootKey = new Text(rkey);
-		  context.write(rootKey, fitness);
+    	  float v = arr[j];
+    	  if(v>-10){
+    		  fitness.set(v);
+    		  String rkey=rootKey(k[j]);
+    		  Text rootKey = new Text(rkey);
+    		  context.write(rootKey, fitness);
+    	  }
       	}
     
     }
@@ -64,9 +68,12 @@ public class GAReducer
     		if(fit[j]>=Util.min_Fitness){
     			fit[j]=maxValue(fit);
     		}
+    		else
+    			fit[j]=-10;
         }
     	return fit;
 	}
+    
     private static float maxValue(float[] arr) {
     	float max = arr[0];
     	for (int ktr = 0; ktr < arr.length; ktr++) {
@@ -76,7 +83,8 @@ public class GAReducer
     	}
     	return max;
     }
-	/*private boolean isRuleFit(float fit) {
+	
+    /*private boolean isRuleFit(float fit) {
 		return fit>=Util.min_Fitness;
 	}*/
   }
