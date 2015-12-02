@@ -35,6 +35,11 @@ public class PairOfFloatString implements WritableComparable<PairOfFloatString> 
     set(left, right);
   }
 
+  /**
+   * Creates a pair.
+   *
+   * @param left the left element
+   */
   public PairOfFloatString(float left) {
 	    set(left);
 	  }
