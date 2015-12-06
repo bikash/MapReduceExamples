@@ -61,7 +61,7 @@ public static void main(String[] args) throws Exception {
     
     
 
-	launch(1);
+	launch(2);
 	
 	 /*	Job job = Job.getInstance(conf,"asd");
 	    job.setJarByClass(SPGATry1.class);
@@ -90,7 +90,8 @@ public static void main(String[] args) throws Exception {
 static void launch(int iter) throws IOException {
 
 	int it=0;
-	while(true) {
+	for(int i =0;i<iter;i++) {
+		
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf,"asd");
 	    job.setJarByClass(SPGATry1.class);
@@ -108,7 +109,7 @@ static void launch(int iter) throws IOException {
 	
 		System.out.println("launching");
 
-		Path tmpDir = new Path(rootDir + "GA");
+		Path tmpDir = new Path(rootDir);
 		Path inDir = new Path(tmpDir, "iter" + it);
 		Path outDir = new Path(tmpDir, "iter" + (it + 1));
 		FileInputFormat.setInputPaths(job, inDir);
@@ -121,19 +122,19 @@ static void launch(int iter) throws IOException {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		try {
+		/*try {
 				fileSys.delete(tmpDir, true);
 			} catch(IOException ie) {
 				System.out.println("Exception while deleting");
 				ie.printStackTrace();
-			}
+			}*/
 		System.out.println("Deleting dir");
 
 		
 		System.out.println("Starting Job");
 		//long startTime = System.currentTimeMillis();
 
-		it++;
+		//it++;
 	}
 }
 
