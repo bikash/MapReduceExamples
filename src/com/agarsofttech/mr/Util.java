@@ -1,13 +1,18 @@
 package com.agarsofttech.mr;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import solutions.IntegerSolution;
+import solutions.Solution;
 
 public class Util {
 	public static final int N = 22;
 	public static final float min_Fitness = (float) 0.020;
 	public static final int ItemSise = 20000;
-	//private static String[] chromosomes;
+	public static final int Iteration = 5;
+
 	
 	
 	static int[] String2Array(String k){
@@ -33,9 +38,15 @@ public class Util {
 		return chromosomes;
 	}
 	
-	public static String[] Crossover(String k){
-		return null;
-		
+	public static String ArraytoString(Solution k){
+		String str="";
+		//IntegerSolution bs1 = new IntegerSolution(null, k.length, k);
+		for(int i=0;i<k.getNumberOfBits();i++){
+			//System.out.println(" string " + k[i].getValue(i));
+    		str = str + k.getValue(i) + " ";
+    	}
+		//System.out.println(" string " + str);
+		return str;
 	}
 	
 	
