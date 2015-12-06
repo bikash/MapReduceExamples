@@ -8,11 +8,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import solutions.BinarySolution;
+import solutions.IntegerSolution;
 import solutions.Solution;
 import operators.crossover.SinglePointCrossover;
 
@@ -58,18 +57,25 @@ public static void main(String[] args) throws Exception {
     String sCurrentLine;
     BufferedReader br = null;
 	br = new BufferedReader(new FileReader("data/phase1.txt"));
-	HashSet<List<Integer>> c = new HashSet<List<Integer>>();
+	//List<Integer> rule = new ArrayList<Integer>();
+	int[][] chromosome = new int[500][3];
+	int i =0;
 	while ((sCurrentLine = br.readLine()) != null) {
-		  c.add(Util.String2Array(sCurrentLine));
-			//rule.add(c1);
-			//System.out.println(sCurrentLine);
+			int[] c1 = Util.String2Array(sCurrentLine);
+			chromosome[i]=c1;
+			System.out.println(sCurrentLine);
+			i++;
 	}
-	System.out.println(" size -->" + c.size());
-	//for(int j=0;j<c.size();j++){
-		for(List<Integer> c1:c){
-			System.out.println("index0 -->" + c1.get(0) );
+	SinglePointCrossover c = new SinglePointCrossover();
+	for (int j = 0; j < i; j++) {
+		int len1 = chromosome[j].length;
+		int len2 = chromosome[j].length;
+		IntegerSolution bs1 = new IntegerSolution(null, len1, chromosome[j]);
+		IntegerSolution bs2 = new IntegerSolution(null, len2, chromosome[j+1]);
+		Solution[] result = c.doCrossover(1, 0, bs1, bs2);
+		System.out.println("Total crossover: " + result[0]);
+		System.out.println("Total crossover: " + result[1]);
 		}
-	//}
 
 	/*SinglePointCrossover c = new SinglePointCrossover();
 	BinarySolution bs1 = new BinarySolution(null, 6, new String[] { 0, 0, 0, 1, 1, 1 });

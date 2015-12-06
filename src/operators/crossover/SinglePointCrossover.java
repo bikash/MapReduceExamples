@@ -41,7 +41,9 @@ public class SinglePointCrossover extends Crossover {
 			childrens[0] = s1;
 			childrens[1] = s2;
 		}
-
+		/*for (int i = 0; i < childrens.length; i++) {
+			System.out.println("crossover" + childrens[i]);
+		}*/
 		return childrens;
 	}
 

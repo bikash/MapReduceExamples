@@ -10,27 +10,27 @@ public class Util {
 	//private static String[] chromosomes;
 	
 	
-	static List<Integer> String2Array(String k){
+	static int[] String2Array(String k){
 		String[] arr = k.split("->");
 		String[] arr1 = null;
-		List<Integer> c = new ArrayList<Integer>();
-		//int[] chromosomes = new int[3];
-		System.out.println("String line " + k);
+		//List<Integer> c = new ArrayList<Integer>();
+		int[] chromosomes = new int[3];
+		//System.out.println("String line " + k);
 		if(arr.length>1){
-			 c.add(Integer.parseInt(arr[0].trim()));
+			 chromosomes[0]= Integer.parseInt(arr[0].trim());
 			 arr1 = arr[1].split(",");
 		}
 		for(int i=0;i<arr1.length-1;i++){
-    		c.add(Integer.parseInt(arr1[i].trim()));
+    		chromosomes[i+1]= Integer.parseInt(arr1[i].trim());
     	}
 		int length = arr1.length-1;
 		String[] lastval = arr1[length].split(" ");
     	
-		c.add(Integer.parseInt(lastval[0]));
+    	chromosomes[arr1.length] = Integer.parseInt(lastval[0].trim());
     	/*for(int i=0;i<chromosomes.length;i++){
     		System.out.println(chromosomes[i]);
     	}*/
-		return c;
+		return chromosomes;
 	}
 	
 	public static String[] Crossover(String k){
