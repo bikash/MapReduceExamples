@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import solutions.BinarySolution;
+
 import solutions.IntegerSolution;
 import solutions.Solution;
 import operators.crossover.SinglePointCrossover;

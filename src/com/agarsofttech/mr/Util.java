@@ -1,14 +1,9 @@
 package com.agarsofttech.mr;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import operators.crossover.SinglePointCrossover;
 import solutions.IntegerSolution;
 import solutions.Solution;
@@ -21,6 +16,7 @@ public class Util {
 
 	
 	
+	//convert String to array
 	static int[] String2Array(String k){
 		String[] arr = k.split("->");
 		String[] arr1 = null;
@@ -44,11 +40,10 @@ public class Util {
 		return chromosomes;
 	}
 	
+	//convert array to string 
 	public static String ArraytoString(Solution k){
 		String str="";
-		//IntegerSolution bs1 = new IntegerSolution(null, k.length, k);
 		for(int i=0;i<k.getNumberOfBits();i++){
-			//System.out.println(" string " + k[i].getValue(i));
     		str = str + k.getValue(i) + " ";
     	}
 		//System.out.println(" string " + str);
@@ -56,6 +51,7 @@ public class Util {
 	}
 	
 	
+	@SuppressWarnings("resource")
 	public static void writeToFile(String instr, String outstr) throws IOException{
 		    String sCurrentLine;
 		  	BufferedReader br = null;
@@ -79,7 +75,6 @@ public class Util {
 				IntegerSolution bs2 = new IntegerSolution(null, len2, chromosome[j+1]);
 				Solution[] result = c.doCrossover(1, 0, bs1, bs2);
 				//System.out.println("Total crossover: " + result[0]);
-				//System.out.println("Total crossover: " + result[1]);
 				String str1 = Util.ArraytoString(result[0]);
 				String str2 = Util.ArraytoString(result[1]);
 				writer.println(str1);

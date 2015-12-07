@@ -32,6 +32,7 @@ import org.apache.hadoop.mapred.Reporter;
 import org.apache.hadoop.mapred.lib.IdentityReducer;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.filecache.DistributedCache;
+import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -44,9 +45,9 @@ public class MapReduce {
 
 	public static String rootDir = "/Users/bikash/repos/bigdata/MapReduceExamples";
 
-	static void launch() throws IOException {
+	static void launch(String inputFile) throws IOException {
 		
-
+		long startTime = System.currentTimeMillis();
 	    int it=0;
 		while(it<Util.Iteration) {
 			
@@ -69,7 +70,8 @@ public class MapReduce {
 	         if(it == 0)
 	            { // I/O path for the first iteration which is received as arguments
 	        	 	outStr = "output_"+it;
-	                FileInputFormat.addInputPath(job, new Path("data/input1.txt"));
+	                //FileInputFormat.addInputPath(job, new Path("data/input1.txt"));
+	        	 	FileInputFormat.addInputPath(job, new Path(inputFile));
 	                FileOutputFormat.setOutputPath(job, new Path(outStr));
 	            }
 	         else
@@ -92,7 +94,8 @@ public class MapReduce {
 				}
 	            it++;
 			}
-			
+			long endTime = System.currentTimeMillis();
+			System.out.println("Total execution time: " + (endTime - startTime) + "ms");
 			
 }
 
@@ -101,7 +104,13 @@ public class MapReduce {
 	 */
 
 	public static void main(String[] argv) throws Exception {
-		launch();
+		Configuration conf = new Configuration();
+		String[] args = new GenericOptionsParser(conf, argv).getRemainingArgs();
+		if (args.length < 1) {
+			System.err.println("Usage: GeneticMR  <Input file>");
+			System.exit(2);
+		}
+		launch(args[0]);
 
 	}
 }
