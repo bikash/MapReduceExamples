@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import operators.crossover.SinglePointCrossover;
 import solutions.IntegerSolution;
 import solutions.Solution;
@@ -12,7 +13,7 @@ public class Util {
 	public static final int N = 22;
 	public static final float min_Fitness = (float) 0.020;
 	public static final int ItemSise = 20000;
-	public static final int Iteration = 5;
+	public static final int Iteration = 2;
 
 	
 	
@@ -83,5 +84,38 @@ public class Util {
 			writer.close();
 	}
 
+	// convert string to crossover mutation
+	public static String[] crossover(String[] instr) throws IOException{
+	  
+	  	String[] r = new String[2];
+		int[][] chromosome = new int[1000][3];
+		int i = 0;
+		System.out.println("sixe chromo" + instr.length);
+		for	( i=0; i<instr.length;i++){
+				chromosome[i] = Util.String2Array(instr[i]);
+				System.out.println("chorom" + chromosome[i]);
+		}
+		SinglePointCrossover c = new SinglePointCrossover();
+		//PrintWriter writer = new PrintWriter("data/input3.txt", "UTF-8");	
+		//PrintWriter writer = new PrintWriter(outstr, "UTF-8");	
+		for (int j = 0; j < i; j=j+2) {
+			int len1 = chromosome[j].length;
+			int len2 = chromosome[j+1].length;
+			IntegerSolution bs1 = new IntegerSolution(null, len1, chromosome[j]);
+			IntegerSolution bs2 = new IntegerSolution(null, len2, chromosome[j+1]);
+			Solution[] result = c.doCrossover(1, 0, bs1, bs2);
+			//System.out.println("Total crossover: " + result[0]);
+			//String str1 = Util.ArraytoString(result[0]);
+			//String str2 = Util.ArraytoString(result[1]);
+			//writer.println(str1);
+			//writer.println(str2);
+			
+			r[0] =Util.ArraytoString(result[0]);
+			r[1]=Util.ArraytoString(result[1]);
+		}
+		
+		//writer.close();
+		return r;
+	}
 	
 }

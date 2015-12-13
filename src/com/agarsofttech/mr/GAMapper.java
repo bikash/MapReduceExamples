@@ -25,6 +25,7 @@ public class GAMapper extends Mapper<Object, Text, Text, PairOfFloatString>{
     		//) {
     		while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+                //System.out.println("line " + line);
                 Set<String> chromosome = getChromosome(line);
                 Set<List<Integer>> rules = Rule.getRules(chromosome);
                 for(List<Integer> rule:rules){

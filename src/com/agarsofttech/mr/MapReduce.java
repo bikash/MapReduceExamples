@@ -56,19 +56,17 @@ public class MapReduce {
 			 Job job = new Job();
 	         job.setJobName("Iterative Genetic Algorithm for calulating fitness");
 	         job.setJarByClass(MapReduce.class);
-	 
-	         job.setMapperClass(GAMapper.class);
-	         job.setCombinerClass(GACombiner.class);
-	         job.setReducerClass(GAReducer.class);
-			
+	        
 	         job.setMapOutputValueClass(PairOfFloatString.class);
-	         
 	         job.setOutputKeyClass(Text.class);
 	         job.setOutputValueClass(FloatWritable.class);
 			
 	         String outStr = "output_"+it;
 	         if(it == 0)
 	            { // I/O path for the first iteration which is received as arguments
+	        	 	job.setMapperClass(GAMapper.class);
+	        	 	job.setCombinerClass(GACombiner.class);
+	        	 	job.setReducerClass(GAReducer.class);	
 	        	 	outStr = "output_"+it;
 	                //FileInputFormat.addInputPath(job, new Path("data/input1.txt"));
 	        	 	FileInputFormat.addInputPath(job, new Path(inputFile));
@@ -77,10 +75,13 @@ public class MapReduce {
 	         else
 	            { // I/O for successive iterations which comes from the previous iterations
 	        	 	String infile="output_"+(it-1)+"/part-r-00000";
-	        	 	String outfile="output_"+(it-1)+"/crossover.txt";
-	        	 	Util.writeToFile(infile,outfile);
+	        	 	job.setMapperClass(COMapper.class);
+	    	        //job.setCombinerClass(GACombiner.class);
+	    	        //job.setReducerClass(GAReducer.class);	
+	        	 	//String outfile="output_"+(it-1)+"/crossover.txt";
+	        	 	//Util.writeToFile(infile,outfile);
 	                //FileInputFormat.addInputPath(job, new Path("output_"+(it-1)+"/part-00000"));
-	        	 	FileInputFormat.addInputPath(job, new Path(outfile));
+	        	 	FileInputFormat.addInputPath(job, new Path(infile));
 	                FileOutputFormat.setOutputPath(job, new Path("output_"+(it)));
 	            }
 	            try {
