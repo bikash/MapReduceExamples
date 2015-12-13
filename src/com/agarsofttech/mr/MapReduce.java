@@ -45,14 +45,14 @@ public class MapReduce {
 
 	public static String rootDir = "/Users/bikash/repos/bigdata/MapReduceExamples";
 
-	static void launch(String inputFile) throws IOException {
+	static void launch(String inputFile) throws IOException, ClassNotFoundException, InterruptedException {
 		
 		long startTime = System.currentTimeMillis();
 	    int it=0;
 		while(it<Util.Iteration) {
 			
 
-			 System.out.println("Starting Job");
+			 System.out.println("Starting Job iteration " + it);
 			 Job job = new Job();
 	         job.setJobName("Iterative Genetic Algorithm for calulating fitness");
 	         job.setJarByClass(MapReduce.class);
@@ -60,9 +60,36 @@ public class MapReduce {
 	         job.setMapOutputValueClass(PairOfFloatString.class);
 	         job.setOutputKeyClass(Text.class);
 	         job.setOutputValueClass(FloatWritable.class);
-			
+	         job.setMapperClass(GAMapper.class);
+     	 	 job.setCombinerClass(GACombiner.class);
+     	 	 job.setReducerClass(GAReducer.class);	
 	         String outStr = "output_"+it;
+	         String infile="output_"+(it-1)+"/part-r-00000";
 	         if(it == 0)
+	        	 infile = inputFile;
+	         else
+	        	 infile = "outputCo_"+(it-1)+"/part-r-00000";
+	        	 
+	         FileInputFormat.addInputPath(job, new Path(infile));
+             FileOutputFormat.setOutputPath(job, new Path(outStr));
+             if(job.waitForCompletion(true))
+             {
+	            	Job job1 = new Job();
+	     	 		System.out.println(" Iterative Genetic Algorithm for calulating crossover " + it);
+	     	 		job1.setJobName("Iterative Genetic Algorithm for calulating crossover");
+	     	 		job1.setJarByClass(MapReduce.class);
+	     	 		job1.setMapperClass(COMapper.class);
+	     	 		job1.setReducerClass(COReducer.class);	
+	     	 		job1.setMapOutputValueClass(Text.class);
+	     	 		job1.setOutputKeyClass(FloatWritable.class);
+	     	 		job1.setOutputValueClass(Text.class);
+	     	 		FileInputFormat.addInputPath(job1, new Path(outStr));
+        	 		FileOutputFormat.setOutputPath(job1, new Path("outputCo_"+(it)));
+        	 		job1.waitForCompletion(true);
+             }
+             
+             
+	         /*if(it == 0)
 	            { // I/O path for the first iteration which is received as arguments
 	        	 	job.setMapperClass(GAMapper.class);
 	        	 	job.setCombinerClass(GACombiner.class);
@@ -74,17 +101,41 @@ public class MapReduce {
 	            }
 	         else
 	            { // I/O for successive iterations which comes from the previous iterations
+	        	 	System.out.println(" Job iteration " + it);
 	        	 	String infile="output_"+(it-1)+"/part-r-00000";
-	        	 	job.setMapperClass(COMapper.class);
-	        	 	job.setReducerClass(COReducer.class);	
-	        	 	job.setMapOutputValueClass(Text.class);
-	        	 	job.setOutputKeyClass(FloatWritable.class);
-	        	 	job.setOutputValueClass(Text.class);
-	        	 	//String outfile="output_"+(it-1)+"/crossover.txt";
-	        	 	//Util.writeToFile(infile,outfile);
-	                //FileInputFormat.addInputPath(job, new Path("output_"+(it-1)+"/part-00000"));
-	        	 	FileInputFormat.addInputPath(job, new Path(infile));
-	                FileOutputFormat.setOutputPath(job, new Path("output_"+(it)));
+	        	 	int flag = 1 ;
+	        	 	if(it%2 != 0){
+	        	 		flag = 0;
+	        	 		Job job1 = new Job();
+	        	 		System.out.println(" Iterative Genetic Algorithm for calulating crossover " + it);
+	        	 		job1.setJobName("Iterative Genetic Algorithm for calulating crossover");
+	        	 		job1.setJarByClass(MapReduce.class);
+	        	 		job1.setMapperClass(COMapper.class);
+	        	 		job1.setReducerClass(COReducer.class);	
+	        	 		job1.setMapOutputValueClass(Text.class);
+	        	 		job1.setOutputKeyClass(FloatWritable.class);
+	        	 		job1.setOutputValueClass(Text.class);
+	        	 		FileInputFormat.addInputPath(job1, new Path(infile));
+	        	 		FileOutputFormat.setOutputPath(job1, new Path("outputCo_"+(it)));
+	        	 		if(job1.waitForCompletion(true))
+	        	 			flag = 1;
+	        	 		
+	        	 	}
+	        	 	if(flag == 1){
+	        	 		 System.out.println(" Iterative Genetic Algorithm for calulating fitness " + it);
+		        	 	 job.setMapperClass(GAMapper.class);
+			        	 job.setCombinerClass(GACombiner.class);
+			        	 job.setReducerClass(GAReducer.class);
+			        	 if(it%2 != 0)
+			        		 infile = "outputCo_"+(it)+"/part-r-00000";
+			        	 else
+			        		 infile="output_"+(it-1)+"/part-r-00000";
+		        	 	//String outfile="output_"+(it-1)+"/crossover.txt";
+		        	 	//Util.writeToFile(infile,outfile);
+		                //FileInputFormat.addInputPath(job, new Path("output_"+(it-1)+"/part-00000"));
+		        	 	FileInputFormat.addInputPath(job, new Path(infile));
+		                FileOutputFormat.setOutputPath(job, new Path("output_"+(it)));
+	        	 	}
 	            }
 	            try {
 					job.waitForCompletion(true);
@@ -94,7 +145,7 @@ public class MapReduce {
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 	            it++;
 			}
 			long endTime = System.currentTimeMillis();

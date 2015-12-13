@@ -16,9 +16,9 @@ import solutions.Solution;
 
 @SuppressWarnings("unused")
 public class COReducer
-       extends Reducer<FloatWritable,Text, Text,FloatWritable> {
+       extends Reducer<FloatWritable,Text, Text,Text> {
 
-    private final static FloatWritable fitness = new FloatWritable(1);
+    //private final static FloatWritable fitness = new FloatWritable(1);
 	private final float[] fits = new float[500];
 	private final String[] k = new String[500];
 	public void reduce(FloatWritable key, Iterable<Text> values,
@@ -33,13 +33,13 @@ public class COReducer
     		  i++;
       }
       String[] c1 = new String[i];
-      System.out.println("size " + i);
+      //System.out.println("size " + i);
       System.arraycopy(c, 0, c1, 0, i);
       int[][] chromosome = new int[i][3];
-      float[] fit = new float[i];
+      //float[] fit = new float[i];
       for	( int j=0; j<i;j++){
 			chromosome[j] = Util.String2Array(c1[j]);
-			fit[j] = Util.String2value(c1[j]);
+			//fit[j] = Util.String2value(c1[j]);
       }
       String[] r = new String[2];
       SinglePointCrossover cr1 = new SinglePointCrossover();
@@ -52,10 +52,10 @@ public class COReducer
 		Solution[] result = cr1.doCrossover(1, 0, bs1, bs2);
 		//System.out.println("Total crossover: " + result[0]);
 		
-		fitness.set(fit[j]);
-		context.write(new Text(ArraytoString(result[0])),fitness);
-		fitness.set(fit[j+1]);
-		context.write(new Text(ArraytoString(result[1])),fitness);
+		//fitness.set(fit[j]);
+		context.write(new Text(ArraytoString(result[0])),new Text(""));
+		//fitness.set(fit[j+1]);
+		context.write(new Text(ArraytoString(result[1])),new Text(""));
       }
     
     
