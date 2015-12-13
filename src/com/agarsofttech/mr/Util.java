@@ -52,7 +52,15 @@ public class Util {
 		return str;
 	}
 	
-	
+	//get chromosome remove fitness value.
+	public static String ChromosomeString(String k) {
+		String[] arr = k.split(" ");
+		String str = "";
+		for(int i =0; i <arr.length-1; i++){
+			str = str + arr[i] + " ";
+		}
+		return str.trim();
+	}
 	@SuppressWarnings("resource")
 	public static void writeToFile(String instr, String outstr) throws IOException{
 		    String sCurrentLine;

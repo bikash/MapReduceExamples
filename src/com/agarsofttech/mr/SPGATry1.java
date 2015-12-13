@@ -14,6 +14,9 @@ import java.util.List;
 
 
 
+
+
+
 import solutions.IntegerSolution;
 import solutions.Solution;
 import operators.crossover.SinglePointCrossover;
@@ -65,7 +68,7 @@ public static void main(String[] args) throws Exception {
 	
 
   }
-		
+
 
 
 }
