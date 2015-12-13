@@ -19,6 +19,7 @@ public class Util {
 	
 	//convert String to array
 	static int[] String2Array(String k){
+		//System.out.println("String line " + k);
 		String[] arr = k.split("->");
 		String[] arr1 = null;
 		//List<Integer> c = new ArrayList<Integer>();
@@ -111,11 +112,21 @@ public class Util {
 			//writer.println(str2);
 			
 			r[0] =Util.ArraytoString(result[0]);
-			r[1]=Util.ArraytoString(result[1]);
+			r[1] =Util.ArraytoString(result[1]);
 		}
 		
 		//writer.close();
 		return r;
 	}
 	
+		//convert String to get fitness value
+		static float String2value(String k){
+					String[] arr = k.split("->");
+					String[] arr1 = null;
+					if(arr.length>1)
+						 arr1 = arr[1].split(" ");
+					//System.out.println("\n Arr len  " + arr1.length+ " "+ arr1[arr1.length-1]);
+					float fitness = Float.parseFloat(arr1[arr1.length-1].trim());
+					return fitness;
+				}
 }

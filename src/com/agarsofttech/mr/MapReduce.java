@@ -76,8 +76,10 @@ public class MapReduce {
 	            { // I/O for successive iterations which comes from the previous iterations
 	        	 	String infile="output_"+(it-1)+"/part-r-00000";
 	        	 	job.setMapperClass(COMapper.class);
-	    	        //job.setCombinerClass(GACombiner.class);
-	    	        //job.setReducerClass(GAReducer.class);	
+	        	 	job.setReducerClass(COReducer.class);	
+	        	 	job.setMapOutputValueClass(Text.class);
+	        	 	job.setOutputKeyClass(FloatWritable.class);
+	        	 	job.setOutputValueClass(Text.class);
 	        	 	//String outfile="output_"+(it-1)+"/crossover.txt";
 	        	 	//Util.writeToFile(infile,outfile);
 	                //FileInputFormat.addInputPath(job, new Path("output_"+(it-1)+"/part-00000"));

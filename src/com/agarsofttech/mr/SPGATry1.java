@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
+
 import solutions.IntegerSolution;
 import solutions.Solution;
 import operators.crossover.SinglePointCrossover;
@@ -61,7 +63,9 @@ public static void main(String[] args) throws Exception {
 	long endTime = System.currentTimeMillis();
 	System.out.println("Total execution time: " + (endTime - startTime) + "ms");
 	
+
   }
+		
 
 
 }
