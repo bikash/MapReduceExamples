@@ -2,6 +2,7 @@
 package com.agarsofttech.mr;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import operators.crossover.SinglePointCrossover;
@@ -19,14 +20,15 @@ public class COReducer
        extends Reducer<FloatWritable,Text, Text,FloatWritable> {
 
     private final static FloatWritable fitness = new FloatWritable(1);
-	private final float[] fits = new float[500];
-	private final String[] k = new String[500];
+	private final float[] fits = new float[Util.ReducerArray];
+   // private final  ArrayList<Float> myArray = new ArrayList<Float>();
+	private final String[] k = new String[Util.ReducerArray];
 	public void reduce(FloatWritable key, Iterable<Text> values,
                        Context context
                        ) throws IOException, InterruptedException {
 
 	  int i = 0;
-	  String[] c = new String[5000];
+	  String[] c = new String[Util.ReducerArray];
 	 
       for (Text val : values) {
     		  c[i]=val.toString();

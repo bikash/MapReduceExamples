@@ -14,7 +14,7 @@ public class Util {
 	public static final float min_Fitness = (float) 0.020;
 	public static final int ItemSise = 20000;
 	public static final int Iteration = 2;
-
+	public static final int ReducerArray = ItemSise*10;
 	
 	
 	//convert String to array
@@ -97,7 +97,7 @@ public class Util {
 	public static String[] crossover(String[] instr) throws IOException{
 	  
 	  	String[] r = new String[2];
-		int[][] chromosome = new int[1000][3];
+		int[][] chromosome = new int[Util.ReducerArray][3];
 		int i = 0;
 		System.out.println("sixe chromo" + instr.length);
 		for	( i=0; i<instr.length;i++){

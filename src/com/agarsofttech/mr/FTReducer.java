@@ -13,8 +13,8 @@ public class FTReducer
        extends Reducer<Text,PairOfFloatString,Text,FloatWritable> {
 
     private final static FloatWritable fitness = new FloatWritable(1);
-	private final float[] fits = new float[500];
-	private final String[] k = new String[500];
+	private final float[] fits = new float[Util.ReducerArray];
+	private final String[] k = new String[Util.ReducerArray];
 	public void reduce(Text key, Iterable<PairOfFloatString> values,
                        Context context
                        ) throws IOException, InterruptedException {
