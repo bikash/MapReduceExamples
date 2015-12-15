@@ -43,9 +43,9 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 @SuppressWarnings({ "deprecation", "unused" })
 public class MapReduce {
 
-	public static String rootDir = "/Users/bikash/repos/bigdata/MapReduceExamples";
+	//public static String rootDir = "/Users/bikash/repos/bigdata/MapReduceExamples";
 
-	static void launch(String inputFile) throws IOException, ClassNotFoundException, InterruptedException {
+	static void launch(String inputFile, String outDir) throws IOException, ClassNotFoundException, InterruptedException {
 		
 		long startTime = System.currentTimeMillis();
 	    int it=0;
@@ -53,7 +53,7 @@ public class MapReduce {
 			
 			 String infile;
 			 String outStr;
-	         outStr = "output_"+it;
+	         outStr = outDir +"output_"+it;
 	         infile="output_"+(it-1)+"/part-r-00000";
 			 System.out.println("Starting Job iteration " + it);
 			 Job job = new Job();
@@ -78,7 +78,7 @@ public class MapReduce {
 		         job.setMapperClass(FTMapper.class);
 	     	 	 job.setCombinerClass(FTCombiner.class);
 	     	 	 job.setReducerClass(FTReducer.class);	
-	     	 	 infile = "outputCo_"+(it-1)+"/part-r-00000";
+	     	 	 infile = outDir +"outputCo_"+(it-1)+"/part-r-00000";
 	     	 	 FileInputFormat.addInputPath(job, new Path(infile));
 	             FileOutputFormat.setOutputPath(job, new Path(outStr));
 	         }
@@ -96,7 +96,7 @@ public class MapReduce {
 	     	 		job1.setOutputKeyClass(FloatWritable.class);
 	     	 		job1.setOutputValueClass(FloatWritable.class);
 	     	 		FileInputFormat.addInputPath(job1, new Path(outStr));
-        	 		FileOutputFormat.setOutputPath(job1, new Path("outputCo_"+(it)));
+        	 		FileOutputFormat.setOutputPath(job1, new Path(outDir +"outputCo_"+(it)));
         	 		job1.waitForCompletion(true);
              }       
 	         it++;
@@ -113,11 +113,11 @@ public class MapReduce {
 	public static void main(String[] argv) throws Exception {
 		Configuration conf = new Configuration();
 		String[] args = new GenericOptionsParser(conf, argv).getRemainingArgs();
-		if (args.length < 1) {
-			System.err.println("Usage: GeneticMR  <Input file>");
+		if (args.length < 2) {
+			System.err.println("Usage: GeneticMR  <Input file> <output dir>");
 			System.exit(2);
 		}
-		launch(args[0]);
+		launch(args[0],args[1]);
 
 	}
 }
