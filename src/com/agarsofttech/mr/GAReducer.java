@@ -34,6 +34,7 @@ public class GAReducer
     		  fitness.set(v);
     		  String rkey=rootKey(k[j]);
     		  Text rootKey = new Text(rkey);
+    		  //System.out.println("arr fit " + rootKey + "->" + v);
     		  context.write(rootKey, fitness);
     	  }
       	}

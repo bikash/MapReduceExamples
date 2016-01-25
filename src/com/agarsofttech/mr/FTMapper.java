@@ -21,7 +21,8 @@ public class FTMapper extends Mapper<Object, Text, Text, PairOfFloatString>{
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
     	//try(
-    		Scanner scanner = new Scanner(value.toString());
+    		@SuppressWarnings("resource")
+			Scanner scanner = new Scanner(value.toString());
     		//) {
     		while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();                
