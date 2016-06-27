@@ -1,9 +1,10 @@
-package example;
+package assignment;
 import java.io.IOException;
 import java.util.Iterator;
 
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
+
 
 public class TextReducer extends MapReduceBase implements Reducer<Text, Text, Text, Text> {
 	//reduce method accepts the Key Value pairs from mappers, do the string concatenation based on keys and produce the final output

@@ -1,8 +1,9 @@
-package example;
+package assignment;
 import java.io.IOException;
 
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
+
 
 public class TextMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, Text>{
 
